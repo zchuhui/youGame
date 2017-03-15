@@ -21,11 +21,29 @@ Enemy.prototype.render = function() {
 
 // 现在实现你自己的玩家类
 // 这个类需要一个 update() 函数， render() 函数和一个 handleInput()函数
+var Player = function(){
+    
+}
+
+Player.prototype.update = function(){
+    
+}
+
+Player.prototype.render = function(){
+    
+}
+
+Player.prototype.handleInput = function(){
+    
+}
 
 
 // 现在实例化你的所有对象
 // 把所有敌人的对象都放进一个叫 allEnemies 的数组里面
 // 把玩家对象放进一个叫 player 的变量里面
+var allEnemies = [];
+var player = new Player();
+
 
 
 // 这段代码监听游戏玩家的键盘点击事件并且代表将按键的关键数字送到 Play.handleInput()
