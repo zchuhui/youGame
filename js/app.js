@@ -33,9 +33,8 @@ var Player = function(x,y){
     this.y = y;
     this.width = 101;
     this.height = 83;
-
     this.img = 'images/char-boy.png';
-
+    
 }
 
 Player.prototype.update = function(){
@@ -46,7 +45,7 @@ Player.prototype.render = function(){
     ctx.drawImage(Resources.get(this.img), this.x, this.y);
 }
 
-Player.prototype.handleInput = function(e){
+Player.prototype.handleInput = function(e){  
     console.log("key:"+e);
     if (e == "left") { 
         if (this.x > 0)
@@ -59,12 +58,22 @@ Player.prototype.handleInput = function(e){
     else if(e == "up"){
         if (this.y > 0) 
             this.y = this.y - 83; 
+        if(this.y < 80){
+            console.log("成功！");
+            //player.success(); 
+        }
     }
     else if(e == "down"){
         if (this.y < 415) 
             this.y = this.y + 83; 
     }
 }
+
+
+// Player.prototype.success = function(){
+//     var success_img = 'images/Star.png';
+//     ctx.drawImage(Resources.get(success_img), 200, 200);
+// }
 
 
 // 现在实例化你的所有对象
@@ -76,7 +85,7 @@ Player.prototype.handleInput = function(e){
 var arrays = function(num){
     var arr = new Array();
     for(var i=0;i<num;i++){
-        arr[i] = new Enemy(-(mathRandom(0,60)*101),mathRandom(1,3)*80,Math.random()*7);
+        arr[i] = new Enemy(-(mathRandom(0,60)*101),mathRandom(1,3)*80,Math.random()*5);
     }
 
     return arr;
@@ -89,9 +98,9 @@ var mathRandom = function(min,max){
 }
 
 
-
 //实例化敌人个数
 var allEnemies = arrays(30);
+
 
 //实例化玩家
 var player = new Player(101*2,83*5); 
