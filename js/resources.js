@@ -4,7 +4,7 @@
  */
 
 (function() {
-    var resourceCache = {};
+    var resourceCache = {};   //缓存已加载的图片
     var loading = [];
     var readyCallbacks = [];
 

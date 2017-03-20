@@ -114,7 +114,7 @@ var Engine = (function(global) {
 
     /* 这个函数会在每个时间间隙被 render 函数调用。他的目的是分别调用你在 enemy 和 player
      * 对象中定义的 render 方法。
-     */
+     */ 
     function renderEntities() {
         /* 遍历在 allEnemies 数组中存放的作于对象然后调用你事先定义的 render 函数 */
         allEnemies.forEach(function(enemy) {
@@ -142,10 +142,12 @@ var Engine = (function(global) {
         'images/enemy-bug.png',
         'images/char-boy.png'
     ]);
+
     Resources.onReady(init);
 
     /* 把 canvas 上下文对象绑定在 global 全局变量上（在浏览器运行的时候就是 window
      * 对象。从而开发者就可以在他们的app.js文件里面更容易的使用它。
      */
     global.ctx = ctx;
+
 })(this);
