@@ -65,7 +65,7 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        checkCollisions();
     }
 
     /* 这个函数会遍历在 app.js 定义的存放所有敌人实例的数组，并且调用他们的 update()
@@ -78,6 +78,25 @@ var Engine = (function(global) {
         });
         player.update();
     }
+
+    /**
+     * 敌人与玩家碰撞函数
+     */
+    function checkCollisions(){
+        allEnemies.forEach(function(enemy) {
+               if(enemy.x + enemy.width < player.x ||
+                player.x + player.width < enemy.x ||
+                enemy.y + enemy.height < player.y ||
+                player.y + player.height < enemy.y){
+                   
+               }
+               else{ 
+                 player = new Player(101*2,83*5);  
+               }
+        });
+    }
+
+
 
     /* 这个函数做了一些游戏的初始渲染，然后调用 renderEntities 函数。记住，这个函数
      * 在每个游戏的时间间隙都会被调用一次（或者说游戏引擎的每个循环），因为这就是游戏

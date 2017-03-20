@@ -5,6 +5,8 @@ var Enemy = function(x,y,speed) {
     this.speed = speed;
     this.x = x;
     this.y = y;
+    this.width = 101;
+    this.height = 83;
 
     // 敌人的图片或者雪碧图，用一个我们提供的工具函数来轻松的加载文件
     this.sprite = 'images/enemy-bug.png';
@@ -29,6 +31,8 @@ Enemy.prototype.render = function() {
 var Player = function(x,y){
     this.x = x;
     this.y = y;
+    this.width = 101;
+    this.height = 83;
 
     this.img = 'images/char-boy.png';
 
@@ -67,24 +71,29 @@ Player.prototype.handleInput = function(e){
 // 把所有敌人的对象都放进一个叫 allEnemies 的数组里面
 // 把玩家对象放进一个叫 player 的变量里面
 
-//实例化敌人
+// 实例化敌人
+// num 为敌人数目
 var arrays = function(num){
     var arr = new Array();
     for(var i=0;i<num;i++){
-        arr[i] = new Enemy(-(mathRandom(0,60)*101),mathRandom(1,3)*77,Math.random()*10);
+        arr[i] = new Enemy(-(mathRandom(0,60)*101),mathRandom(1,3)*80,Math.random()*7);
     }
 
     return arr;
 }
 
-//返回设定的随机数
+//产生设定的随机数
+//随机数范围是min~max
 var mathRandom = function(min,max){
     return parseInt(Math.random()*(max-min+1)+min,10);
 }
 
+
+
 //实例化敌人个数
 var allEnemies = arrays(30);
 
+//实例化玩家
 var player = new Player(101*2,83*5); 
 
 
