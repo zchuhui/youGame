@@ -13,11 +13,11 @@ var Enemy = function(x,y,speed) {
 };
 
 // 此为游戏必须的函数，用来更新敌人的位置
-// 参数: dt ，表示时间间隙
+// 参数: dt ，表示时间间隙 
 Enemy.prototype.update = function(dt) {
     // 你应该给每一次的移动都乘以 dt 参数，以此来保证游戏在所有的电脑上
     // 都是以同样的速度运行的
-    this.x = (this.x+this.speed); 
+    this.x += this.speed *dt; 
 };
 
 // 此为游戏必须的函数，用来在屏幕上画出敌人，
@@ -25,6 +25,8 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+//是否成功过河
+var suc = false;
 
 // 现在实现你自己的玩家类
 // 这个类需要一个 update() 函数， render() 函数和一个 handleInput()函数
@@ -34,21 +36,33 @@ var Player = function(x,y){
     this.width = 101;
     this.height = 83;
     this.img = 'images/char-boy.png';
-    
+    this.star = 'images/Star.png';
+    this.selector = 'images/Selector.png';
+
 }
 
 Player.prototype.update = function(){
-    
 }
 
 Player.prototype.render = function(){
     ctx.drawImage(Resources.get(this.img), this.x, this.y);
 }
 
+//成功时的展示
+Player.prototype.success = function(){
+    //绘制成功提示
+    ctx.drawImage(Resources.get(this.selector), 200, 200);   
+    ctx.drawImage(Resources.get(this.star), 200, 200);  
+
+    //清空敌人
+    allEnemies = [];
+}
+
+//鼠标操控
 Player.prototype.handleInput = function(e){  
-    console.log("key:"+e);
+
     if (e == "left") { 
-        if (this.x > 0)
+        if (this.x > 0) 
             this.x = this.x - 101; 
     }
     else if (e == "right") {
@@ -58,9 +72,10 @@ Player.prototype.handleInput = function(e){
     else if(e == "up"){
         if (this.y > 0) 
             this.y = this.y - 83; 
+
         if(this.y < 80){
             console.log("成功！");
-            //player.success(); 
+            suc = true; 
         }
     }
     else if(e == "down"){
@@ -70,37 +85,41 @@ Player.prototype.handleInput = function(e){
 }
 
 
-// Player.prototype.success = function(){
-//     var success_img = 'images/Star.png';
-//     ctx.drawImage(Resources.get(success_img), 200, 200);
-// }
-
 
 // 现在实例化你的所有对象
 // 把所有敌人的对象都放进一个叫 allEnemies 的数组里面
 // 把玩家对象放进一个叫 player 的变量里面
 
-// 实例化敌人
-// num 为敌人数目
-var arrays = function(num){
-    var arr = new Array();
-    for(var i=0;i<num;i++){
-        arr[i] = new Enemy(-(mathRandom(0,60)*101),mathRandom(1,3)*80,Math.random()*5);
+
+//自动化根据提供的数目构建敌人
+var AutoEnemyNum = (function(){
+
+    //随机生成敌人的位置与速度
+    //num表示敌人数目
+    function enemys(num){ 
+        var arr = new Array();
+        for(var i=0; i<num; i++){
+            arr[i] = new Enemy(-(mathRandom(0,60)*101),mathRandom(1,3)*80,Math.random()*500);
+        }
+
+        return arr;
     }
 
-    return arr;
-}
+    //产生设定的随机数
+    //随机数范围是min~max
+    function mathRandom(min,max){
+        return parseInt(Math.random()*(max-min+1)+min,10);
+    }
 
-//产生设定的随机数
-//随机数范围是min~max
-var mathRandom = function(min,max){
-    return parseInt(Math.random()*(max-min+1)+min,10);
-}
+    return {
+        enemys:enemys
+    }
+
+})();
 
 
 //实例化敌人个数
-var allEnemies = arrays(30);
-
+var allEnemies = AutoEnemyNum.enemys(30);
 
 //实例化玩家
 var player = new Player(101*2,83*5); 
