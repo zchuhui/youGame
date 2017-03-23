@@ -1,6 +1,46 @@
-前端纳米学位街机游戏项目
-===============================
 
-学生应该用这个[评审标准](https://review.udacity.com/#!/projects/2696458597/rubric)来自我检查自己提交的代码。 确认自己写的函数要是**面向对象的** -  要么是类函数（就像函数 Player 和 Enemy）要么是类的原型链上的函数比如 Enemy.prototype.checkCollisions ， 在类函数里面或者类的原型链函数里面适当的使用关键词 'this' 来引用调用该函数的对象实例。最后保证你的**readme.md**文件要写明关于如何运行和如何玩你的街机游戏的指引。
 
-关于如何开始这个项目的更详细的指导，可以查阅这一份[指南](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true)
+
+## 游戏概述:
+
+这是一款模仿街机的**过河小游戏**，玩家从下发出发，避开敌人（害虫）到达小河即可获胜。当被敌人碰到时，将死亡并回到起点从新开始。
+
+## 游戏截图：
+
+![image](https://img1.doubanio.com/view/status/median/public/079977f0890ea78.jpg);
+
+
+## 游戏操作：
+
+通过键盘的`上-下-左-右`键即可操作角色走向，到达小河即可。
+
+## 开发技术：
+
+- Canvas
+- JS 类、闭包
+
+## 开发思路：
+把游戏角色的图片绘制到Canvas画布上，然后通过 `requestAnimationFrame`  不断的对画布进行绘制产生动画效果。 
+然后通过遍历敌人与玩家的坐标，判断是否碰撞，来得到游戏的效果。
+敌人的起点与速度随机，玩家的操作用键盘的`up`/`down`/`left`/`right`键来操作。
+
+
+## 项目结构：
+
+```
+├──  youGame
+|    ├──  css         
+|    ├──  images
+|    ├──  js
+|    |    ├──  app.js          //主js文件，负责构建玩家与敌人等操作
+|    |    ├──  engine.js       //游戏引擎文件，提供了游戏循环绘制功能
+|    |    ├──  resourcess.js   //图片加载文件，缓存要用到的图片
+|    ├──  index.html           //页面入口
+|    ├──  README.md            //你现在看的文档
+
+```
+
+
+
+
+
