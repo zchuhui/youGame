@@ -17,7 +17,12 @@ var Enemy = function(x,y,speed) {
 Enemy.prototype.update = function(dt) {
     // 你应该给每一次的移动都乘以 dt 参数，以此来保证游戏在所有的电脑上
     // 都是以同样的速度运行的
-    this.x += this.speed *dt; 
+    // 当敌人超过屏幕时，重置敌人的位置
+    if (this.x > 600) 
+        this.x = -(AutoEnemyNum.mathRandom(0,60)*101);
+    else
+        this.x += this.speed *dt; 
+
 };
 
 // 此为游戏必须的函数，用来在屏幕上画出敌人，
@@ -45,6 +50,7 @@ Player.prototype.update = function(){
 }
 
 Player.prototype.render = function(){
+
     ctx.drawImage(Resources.get(this.img), this.x, this.y);
 }
 
@@ -99,7 +105,11 @@ var AutoEnemyNum = (function(){
     function enemys(num){ 
         var arr = new Array();
         for(var i=0; i<num; i++){
-            arr[i] = new Enemy(-(mathRandom(0,60)*101),mathRandom(1,3)*80,Math.random()*500);
+            var x = -(mathRandom(1,10)*101);
+            var y = mathRandom(1,3)*80;
+            var speed = Math.random()*500;
+            arr[i] = new Enemy(x,y,speed); 
+
         }
 
         return arr;
@@ -112,14 +122,15 @@ var AutoEnemyNum = (function(){
     }
 
     return {
-        enemys:enemys
+        enemys:enemys,
+        mathRandom:mathRandom,
     }
 
 })();
 
 
 //实例化敌人个数
-var allEnemies = AutoEnemyNum.enemys(30);
+var allEnemies = AutoEnemyNum.enemys(15);
 
 //实例化玩家
 var player = new Player(101*2,83*5); 
